@@ -6,7 +6,6 @@ An alternative Spotify player built with Next.js that delivers an immersive, vis
 ![Vibeflow](https://img.shields.io/badge/Next.js-14+-black?style=flat-square&logo=next.js)
 ![Spotify API](https://img.shields.io/badge/Spotify-API-1DB954?style=flat-square&logo=spotify)
 ![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
-![FullScreen Mode](https://i.imgur.com/jw8OY31.png)
 
 ## Features
 
@@ -28,6 +27,7 @@ An alternative Spotify player built with Next.js that delivers an immersive, vis
 ![Login](https://i.imgur.com/HU0dTeL.png)
 ![Player](https://i.imgur.com/loFvZyd.png)
 ![Playlists](https://i.imgur.com/4D1CRRx.png)
+![FullScreen Mode](https://i.imgur.com/jw8OY31.png)
 
 ## Tech Stack
 
