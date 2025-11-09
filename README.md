@@ -25,6 +25,8 @@ An alternative Spotify player built with Next.js that delivers an immersive, vis
 ## Screenshots
 
 ![Login](https://i.imgur.com/HU0dTeL.png)
+![Player](https://i.imgur.com/loFvZyd.png)
+![Playlists](https://i.imgur.com/4D1CRRx.png)
 
 ## Tech Stack
 
