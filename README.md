@@ -20,7 +20,7 @@ An alternative Spotify player built with Next.js that delivers an immersive, vis
 
 ## Demo
 
-[Live Demo](#) *(Add your deployed URL here)*
+[Live Demo](#)
 
 ## Screenshots
 
