@@ -17,6 +17,7 @@ export default function Player() {
     const [progress, setProgress] = useState(0)
     const [duration, setDuration] = useState(0)
     const [isSeeking, setIsSeeking] = useState(false)
+    const [isFullscreen, setIsFullscreen] = useState(false)
     const progressInterval = useRef(null)
 
     useEffect(() => {
@@ -24,6 +25,33 @@ export default function Player() {
             router.push("/login")
         }
     }, [status, router])
+
+    // Toggle fullscreen
+    const toggleFullscreen = () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().then(() => {
+                setIsFullscreen(true)
+            }).catch(err => {
+                console.error('Error entering fullscreen:', err)
+            })
+        } else {
+            document.exitFullscreen().then(() => {
+                setIsFullscreen(false)
+            }).catch(err => {
+                console.error('Error exiting fullscreen:', err)
+            })
+        }
+    }
+
+    // Listen for fullscreen changes
+    useEffect(() => {
+        const handleFullscreenChange = () => {
+            setIsFullscreen(!!document.fullscreenElement)
+        }
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange)
+        return () => document.removeEventListener('fullscreenchange', handleFullscreenChange)
+    }, [])
 
     // Auto-rotate artist facts every 8 seconds
     useEffect(() => {
@@ -341,11 +369,28 @@ export default function Player() {
             <div className="absolute inset-0 bg-black/40" />
 
             <div className="relative z-10">
-                <header className="flex justify-end items-center p-6 dropdown-container">
+                <header className="flex justify-between items-center p-4 sm:p-6 dropdown-container">
+                    {/* Fullscreen button on left */}
+                    <button
+                        onClick={toggleFullscreen}
+                        className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 hover:bg-white/30 transition flex items-center justify-center"
+                        title={isFullscreen ? "Exit Fullscreen" : "Enter Fullscreen"}
+                    >
+                        {isFullscreen ? (
+                            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        ) : (
+                            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                            </svg>
+                        )}
+                    </button>
+
                     <div className="relative">
                         <button
                             onClick={() => setShowDropdown(!showDropdown)}
-                            className="w-12 h-12 rounded-full bg-white/20 overflow-hidden hover:bg-white/30 transition cursor-pointer"
+                            className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/20 overflow-hidden hover:bg-white/30 transition cursor-pointer"
                         >
                             {session.user?.image ? (
                                 <img src={session.user.image} alt="Profile" className="w-full h-full object-cover pointer-events-none" />
@@ -387,8 +432,9 @@ export default function Player() {
                     </div>
                 </header>
 
-                <div className="flex flex-col items-center justify-center px-8 py-16">
-                    <div className="w-80 h-80 bg-gray-800 rounded-3xl mb-8 overflow-hidden shadow-2xl">
+                <div className="flex flex-col items-center justify-center px-4 sm:px-8 py-8 sm:py-16">
+                    {/* Album Art */}
+                    <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-gray-800 rounded-2xl sm:rounded-3xl mb-6 sm:mb-8 overflow-hidden shadow-2xl">
                         {currentTrack?.album?.images?.[0] ? (
                             <img
                                 src={currentTrack.album.images[0].url}
@@ -396,30 +442,32 @@ export default function Player() {
                                 className="w-full h-full object-cover"
                             />
                         ) : (
-                            <div className="w-full h-full flex items-center justify-center text-6xl">
+                            <div className="w-full h-full flex items-center justify-center text-5xl sm:text-6xl">
                                 🎵
                             </div>
                         )}
                     </div>
 
-                    <div className="text-center mb-4">
-                        <h1 className="text-4xl font-bold mb-2">
+                    {/* Track Info */}
+                    <div className="text-center mb-4 px-4 max-w-2xl">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 truncate">
                             {currentTrack?.name || "No track playing"}
                         </h1>
-                        <p className="text-2xl text-white/70">
+                        <p className="text-xl sm:text-2xl text-white/70 truncate">
                             {currentTrack?.artists?.[0]?.name || "Unknown Artist"}
                         </p>
-                        <p className="text-lg text-white/50 mt-2">
+                        <p className="text-base sm:text-lg text-white/50 mt-2 truncate">
                             {currentTrack?.album?.name || ""}
                         </p>
                     </div>
 
-                    <div className="max-w-2xl mx-auto text-center my-8 bg-black/30 rounded-2xl p-6 min-h-[120px] flex flex-col items-center justify-center">
+                    {/* Fun Fact */}
+                    <div className="w-full max-w-2xl mx-auto text-center my-6 sm:my-8 bg-black/30 rounded-2xl p-4 sm:p-6 min-h-[100px] sm:min-h-[120px] flex flex-col items-center justify-center">
                         {loadingFacts ? (
-                            <p className="text-white/60">Loading artist info...</p>
+                            <p className="text-white/60 text-sm sm:text-base">Loading artist info...</p>
                         ) : artistFacts.length > 0 ? (
                             <div className="w-full">
-                                <p className="text-white/80 leading-relaxed mb-4">
+                                <p className="text-white/80 leading-relaxed mb-4 text-sm sm:text-base">
                                     {artistFacts[currentFactIndex]}
                                 </p>
                                 {artistFacts.length > 1 && (
@@ -435,34 +483,35 @@ export default function Player() {
                                 )}
                             </div>
                         ) : currentTrack ? (
-                            <p className="text-white/60">No artist info available</p>
+                            <p className="text-white/60 text-sm sm:text-base">No artist info available</p>
                         ) : (
-                            <p className="text-white/80 leading-relaxed">
+                            <p className="text-white/80 leading-relaxed text-sm sm:text-base">
                                 Welcome to Vibeflow! Sign in to Spotify and start playing music.
                             </p>
                         )}
                     </div>
 
-                    <div className="flex items-center gap-6 mb-8">
+                    {/* Player Controls */}
+                    <div className="flex items-center gap-4 sm:gap-6 mb-6 sm:mb-8">
                         <button
                             onClick={skipToPrevious}
-                            className="w-16 h-16 rounded-full bg-white/20 hover:bg-white/30 transition flex items-center justify-center active:scale-95 cursor-pointer"
+                            className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-white/20 hover:bg-white/30 transition flex items-center justify-center active:scale-95 cursor-pointer"
                         >
-                            <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
                             </svg>
                         </button>
 
                         <button
                             onClick={togglePlayPause}
-                            className="w-20 h-20 rounded-full bg-white hover:bg-white/90 transition flex items-center justify-center shadow-2xl active:scale-95 cursor-pointer"
+                            className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white hover:bg-white/90 transition flex items-center justify-center shadow-2xl active:scale-95 cursor-pointer"
                         >
                             {isPlaying ? (
-                                <svg className="w-10 h-10 text-black" fill="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-8 h-8 sm:w-10 sm:h-10 text-black" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
                                 </svg>
                             ) : (
-                                <svg className="w-10 h-10 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
+                                <svg className="w-8 h-8 sm:w-10 sm:h-10 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M8 5v14l11-7z" />
                                 </svg>
                             )}
@@ -470,18 +519,18 @@ export default function Player() {
 
                         <button
                             onClick={skipToNext}
-                            className="w-16 h-16 rounded-full bg-white/20 hover:bg-white/30 transition flex items-center justify-center active:scale-95 cursor-pointer"
+                            className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-white/20 hover:bg-white/30 transition flex items-center justify-center active:scale-95 cursor-pointer"
                         >
-                            <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M16 18h2V6h-2v12zm-4-6l-8.5-6v12z" />
                             </svg>
                         </button>
                     </div>
 
                     {/* Progress Bar */}
-                    <div className="w-full max-w-md mb-8">
-                        <div className="flex items-center gap-3">
-                            <span className="text-sm text-white/60 min-w-[40px]">
+                    <div className="w-full max-w-md px-4 sm:px-0 mb-6 sm:mb-8">
+                        <div className="flex items-center gap-2 sm:gap-3">
+                            <span className="text-xs sm:text-sm text-white/60 min-w-[35px] sm:min-w-[40px]">
                                 {formatTime(progress)}
                             </span>
                             <input
@@ -495,19 +544,19 @@ export default function Player() {
                                 className="flex-1 h-1 bg-white/20 rounded-full appearance-none cursor-pointer progress-bar"
                                 disabled={!currentTrack}
                             />
-                            <span className="text-sm text-white/60 min-w-[40px] text-right">
+                            <span className="text-xs sm:text-sm text-white/60 min-w-[35px] sm:min-w-[40px] text-right">
                                 {formatTime(duration)}
                             </span>
                         </div>
                     </div>
 
                     {/* Volume Control */}
-                    <div className="flex items-center justify-center gap-4 w-full max-w-xs mx-auto">
+                    <div className="flex items-center justify-center gap-3 sm:gap-4 w-full max-w-xs mx-auto px-4 sm:px-0">
                         <button
                             onClick={() => setVolume(0)}
                             className="text-white/50 hover:text-white transition"
                         >
-                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M7 9v6h4l5 5V4l-5 5H7z" />
                             </svg>
                         </button>
@@ -528,7 +577,7 @@ export default function Player() {
                             onClick={() => setVolume(100)}
                             className="text-white hover:text-white/70 transition"
                         >
-                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
                             </svg>
                         </button>
