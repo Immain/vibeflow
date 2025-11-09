@@ -486,7 +486,7 @@ export default function Player() {
                             <p className="text-white/60 text-sm sm:text-base">No artist info available</p>
                         ) : (
                             <p className="text-white/80 leading-relaxed text-sm sm:text-base">
-                                Welcome to Vibeflow! Sign in to Spotify and start playing music.
+                                Welcome to Vibeflow! Open the Spotify app on your device and start playing music.
                             </p>
                         )}
                     </div>
