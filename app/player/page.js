@@ -446,7 +446,7 @@ export default function Player() {
                     <div className="flex items-center gap-6 mb-8">
                         <button
                             onClick={skipToPrevious}
-                            className="w-16 h-16 rounded-full bg-white/20 hover:bg-white/30 transition flex items-center justify-center active:scale-95"
+                            className="w-16 h-16 rounded-full bg-white/20 hover:bg-white/30 transition flex items-center justify-center active:scale-95 cursor-pointer"
                         >
                             <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
@@ -455,7 +455,7 @@ export default function Player() {
 
                         <button
                             onClick={togglePlayPause}
-                            className="w-20 h-20 rounded-full bg-white hover:bg-white/90 transition flex items-center justify-center shadow-2xl active:scale-95"
+                            className="w-20 h-20 rounded-full bg-white hover:bg-white/90 transition flex items-center justify-center shadow-2xl active:scale-95 cursor-pointer"
                         >
                             {isPlaying ? (
                                 <svg className="w-10 h-10 text-black" fill="currentColor" viewBox="0 0 24 24">
@@ -470,7 +470,7 @@ export default function Player() {
 
                         <button
                             onClick={skipToNext}
-                            className="w-16 h-16 rounded-full bg-white/20 hover:bg-white/30 transition flex items-center justify-center active:scale-95"
+                            className="w-16 h-16 rounded-full bg-white/20 hover:bg-white/30 transition flex items-center justify-center active:scale-95 cursor-pointer"
                         >
                             <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M16 18h2V6h-2v12zm-4-6l-8.5-6v12z" />
