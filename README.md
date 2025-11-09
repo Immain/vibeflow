@@ -1,36 +1,171 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Vibeflow 🎵
 
-## Getting Started
 
-First, run the development server:
+An alternative Spotify player built with Next.js that delivers an immersive, visually rich listening experience featuring artist insights, playlist organization, and in-depth user stats. This project began as both a passion project and a personal challenge. It is a modern reimagining of an earlier Spotify app I built years ago but couldn’t fully complete.
 
+![Vibeflow](https://img.shields.io/badge/Next.js-14+-black?style=flat-square&logo=next.js)
+![Spotify API](https://img.shields.io/badge/Spotify-API-1DB954?style=flat-square&logo=spotify)
+![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
+
+## Features
+
+- **Dynamic Backgrounds** - Album art creates beautiful blurred backgrounds
+- **Full Playback Control** - Play, pause, skip, volume control, and seeking
+- **Artist Facts** - Auto-rotating facts about the artists you're listening to
+- **User Statistics** - View your top artists, tracks, and estimated listening hours
+- **Playlist Management** - Browse and play your Spotify playlists
+- **Recently Played** - See your listening history
+- **User Profile** - Detailed profile with follower count and subscription info
+- **Real-time Sync** - Automatically syncs with your Spotify playback
+
+## Demo
+
+[Live Demo](#) *(Add your deployed URL here)*
+
+## Screenshots
+
+*(Add screenshots of your app here)*
+
+## Tech Stack
+
+- **Framework:** [Next.js 14](https://nextjs.org/)
+- **Authentication:** [NextAuth.js](https://next-auth.js.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **API:** [Spotify Web API](https://developer.spotify.com/documentation/web-api)
+
+## Prerequisites
+
+Before you begin, ensure you have:
+
+- Node.js 24+ installed
+- A Spotify account (Premium recommended for full playback control)
+- A Spotify Developer App (instructions below)
+
+## Installation
+
+### 1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/vibeflow.git
+cd vibeflow
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 3. Set up Spotify Developer App
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Go to [Spotify Developer Dashboard](https://developer.spotify.com/dashboard)
+2. Log in with your Spotify account
+3. Click **"Create app"**
+4. Fill in the details:
+   - **App name:** Vibeflow
+   - **App description:** Alternative Spotify player
+   - **Redirect URI:** `http://127.0.0.1:3000/api/auth/callback/spotify`
+   - **Which API/SDKs are you planning to use?** Check "Web API"
+5. Click **Save**
+6. Go to **Settings** and copy your **Client ID** and **Client Secret**
 
-## Learn More
+### 4. Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+Create a `.env.local` file in the root directory:
+```env
+SPOTIFY_CLIENT_ID=your_client_id_here
+SPOTIFY_CLIENT_SECRET=your_client_secret_here
+NEXTAUTH_SECRET=your_nextauth_secret_here
+NEXTAUTH_URL=http://127.0.0.1:3000
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Generate `NEXTAUTH_SECRET` with:
+```bash
+openssl rand -base64 32
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 5. Run the development server
+```bash
+npm run dev
+```
 
-## Deploy on Vercel
+Open [http://127.0.0.1:3000](http://127.0.0.1:3000) in your browser.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Usage
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Login** - Click "Connect with Spotify" to authenticate
+2. **Player** - Control playback with play/pause, skip, volume, and seeking
+3. **Playlists** - Browse and play your Spotify playlists
+4. **Profile** - View your listening statistics and top artists/tracks
+
+## Features Breakdown
+
+### Player Controls
+- Play/Pause
+- Skip forward/backward
+- Volume control
+- Progress bar with seeking
+- Dynamic album art backgrounds
+
+### Artist Information
+- Auto-rotating facts about artists
+- Genre information
+- Popularity metrics
+- Follower counts
+- Top tracks
+
+### User Profile
+- Profile picture and basic info
+- Estimated listening hours
+- Top 5 artists (last 6 months)
+- Top 5 tracks (last 6 months)
+- Recently played tracks
+
+### Playlists
+- View all your playlists
+- Play any playlist with one click
+- Album art thumbnails
+- Track counts
+
+## Required Spotify Permission Scopes
+
+Vibeflow requires the following Spotify permissions:
+- `user-read-email`
+- `user-read-private`
+- `user-read-playback-state`
+- `user-modify-playback-state`
+- `user-read-currently-playing`
+- `user-read-recently-played`
+- `user-top-read`
+- `streaming`
+- `playlist-read-private`
+- `playlist-read-collaborative`
+
+## Deployment
+
+### Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Import your repository on [Vercel](https://vercel.com)
+3. Add environment variables in Vercel project settings
+4. Update your Spotify app's redirect URI to: `https://your-domain.vercel.app/api/auth/callback/spotify`
+5. Update `NEXTAUTH_URL` in Vercel environment variables to your deployed URL
+
+### Other Platforms
+
+Make sure to:
+1. Set all environment variables
+2. Update Spotify redirect URI to match your deployed URL
+3. Update `NEXTAUTH_URL` environment variable
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## Disclaimer
+
+**Vibeflow is an unofficial third-party app. We're not affiliated with or endorsed by Spotify. Spotify® is a registered trademark of Spotify AB.**
