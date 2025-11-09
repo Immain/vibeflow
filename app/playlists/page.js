@@ -91,7 +91,7 @@ export default function Playlists() {
                     <div>
                         <button
                             onClick={() => router.push("/player")}
-                            className="mb-4 flex items-center gap-2 text-white/70 hover:text-white transition"
+                            className="mb-4 flex items-center gap-2 text-white/70 hover:text-white transition cursor-pointer"
                         >
                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
