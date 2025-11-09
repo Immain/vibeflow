@@ -1,7 +1,7 @@
 # Vibeflow
 
 
-An alternative Spotify player built with Next.js that delivers an immersive, visually rich listening experience featuring artist insights, playlist organization, and in-depth user stats. This project began as both a passion project and a personal challenge. It is a modern reimagining of an earlier Spotify app I built years ago but couldn’t fully complete.
+An alternative Spotify remote player built with Next.js that delivers an immersive, visually rich listening experience featuring artist insights, playlist organization, and in-depth user stats. This project began as both a passion project and a personal challenge. It is a modern reimagining of an earlier Spotify app I built years ago but couldn’t fully complete.
 
 ![Vibeflow](https://img.shields.io/badge/Next.js-14+-black?style=flat-square&logo=next.js)
 ![Spotify API](https://img.shields.io/badge/Spotify-API-1DB954?style=flat-square&logo=spotify)
