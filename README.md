@@ -20,7 +20,7 @@ An alternative Spotify player built with Next.js that delivers an immersive, vis
 
 ## Demo
 
-[Live Demo](#)
+[Live Demo](https://vibeflow.pixelforcelabs.com/login)
 
 ## Screenshots
 
