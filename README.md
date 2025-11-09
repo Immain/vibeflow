@@ -20,6 +20,8 @@ An alternative Spotify remote player built with Next.js that delivers an immersi
 
 ## Demo
 
+> **Disclaimer:** Due to Spotify Developer restrictions, only authorized users can access the demo.
+
 [Live Demo](https://vibeflow.pixelforcelabs.com/login)
 
 ## Screenshots
