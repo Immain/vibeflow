@@ -141,33 +141,6 @@ Vibeflow requires the following Spotify permissions:
 - `playlist-read-private`
 - `playlist-read-collaborative`
 
-## Deployment
-
-### Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Import your repository on [Vercel](https://vercel.com)
-3. Add environment variables in Vercel project settings
-4. Update your Spotify app's redirect URI to: `https://your-domain.vercel.app/api/auth/callback/spotify`
-5. Update `NEXTAUTH_URL` in Vercel environment variables to your deployed URL
-
-### Other Platforms
-
-Make sure to:
-1. Set all environment variables
-2. Update Spotify redirect URI to match your deployed URL
-3. Update `NEXTAUTH_URL` environment variable
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ## Disclaimer
 
 **Vibeflow is an unofficial third-party app. We're not affiliated with or endorsed by Spotify. Spotify® is a registered trademark of Spotify AB.**
